@@ -25,7 +25,10 @@ const MainNavigation = () => {
     const navigation = useNavigation();
     const handleLogout = async () => {
         await AsyncStorage.removeItem('isLogin');
-        navigation.navigate('Login');
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'Login'}],
+        });
     };
     return (
         <Drawer.Navigator
