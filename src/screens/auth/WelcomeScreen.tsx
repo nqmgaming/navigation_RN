@@ -1,8 +1,22 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View, Button, Image, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeScreen = () => {
+
+    const getIsLoggedIn = async () => {
+        try {
+            const value = await AsyncStorage.getItem('isLogin');
+            if (value !== null) {
+                console.log(value)
+                return value;
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     const navigation = useNavigation();
     const user = {
         name: 'Nguyen Quang Minh',
@@ -12,13 +26,20 @@ const WelcomeScreen = () => {
 
     useEffect(() => {
         // move to login screen
-        const timer = setTimeout(() => {
-            // @ts-ignore
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Login' }],
-            });
-        }, 1);
+        const timer = setTimeout(async () => {
+            console.log(getIsLoggedIn())
+            if (await getIsLoggedIn()) {
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Main'}],
+                });
+            } else {
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Login'}],
+                });
+            }
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, [navigation]);
@@ -53,7 +74,7 @@ const WelcomeScreen = () => {
                 }]}>
                     {user.className}
                 </Text>
-                <ActivityIndicator size="small" color="#0000ff" />
+                <ActivityIndicator size="small" color="#0000ff"/>
             </View>
         </View>
     );
@@ -69,7 +90,7 @@ const styles = StyleSheet.create({
     },
     boxText: {
         width: 250,
-        height:400,
+        height: 400,
         justifyContent: 'center', // vertical
         alignItems: 'center', // horizontal
         shadowColor: '#000',

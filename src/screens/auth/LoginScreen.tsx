@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Image, Modal, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -49,6 +50,7 @@ const LoginScreen = () => {
     // handle login
     const handleLogin = () => {
         if (validateUsername(username) && validatePassword(password)) {
+            saveLogin()
             navigation.reset({
                 index: 0,
                 routes: [{name: 'Main'}],
@@ -56,6 +58,17 @@ const LoginScreen = () => {
         }
     };
 
+    // save login
+    const saveLogin = async () => {
+        try {
+            await AsyncStorage.setItem('username', username)
+            await AsyncStorage.setItem('password', password)
+            await AsyncStorage.setItem('isLogin', 'true')
+            console.log('save login success')
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>

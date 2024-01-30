@@ -1,14 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from "@react-navigation/drawer";
 import HomeScreen from "../screens/main/HomeScreen";
 import IntroduceScreen from "../screens/main/IntroduceScreen";
 import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
 import HomeNavigation from "./HomeNavigation";
-import {useRoute} from "@react-navigation/native"; // import the icon library
+import {useNavigation, useRoute} from "@react-navigation/native"; // import the icon library
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 const CustomDrawerContent = (props) => {
+
     return (
         <DrawerContentScrollView {...props}>
             <View style={{padding: 20, alignItems: 'center'}}>
@@ -20,7 +22,11 @@ const CustomDrawerContent = (props) => {
     );
 };
 const MainNavigation = () => {
-    const route = useRoute();
+    const navigation = useNavigation();
+    const handleLogout = async () => {
+        await AsyncStorage.removeItem('isLogin');
+        navigation.navigate('Login');
+    };
     return (
         <Drawer.Navigator
             drawerContent={props => <CustomDrawerContent {...props} />}
@@ -68,6 +74,34 @@ const MainNavigation = () => {
                     ),
                     headerShown: true,
                     headerTitle: 'Introduce',
+                }}
+            />
+            <Drawer.Screen
+                name="Logout"
+                component={View} // This won't be rendered
+                options={{
+                    drawerIcon: ({focused, size}) => (
+                        <Ionicons
+                            name={focused ? 'log-out' : 'log-out-outline'}
+                            size={size}
+                            color={focused ? '#7cc' : '#ccc'}
+                        />
+                    ),
+                }}
+                listeners={{
+                    focus: async () => {
+                        Alert.alert(
+                            "Logout",
+                            "Are you sure you want to logout?",
+                            [
+                                {
+                                    text: "Cancel",
+                                    style: "cancel"
+                                },
+                                { text: "OK", onPress: () => handleLogout() }
+                            ]
+                        );
+                    },
                 }}
             />
         </Drawer.Navigator>
