@@ -1,6 +1,5 @@
 import React from 'react';
 import {Linking, StyleSheet, Text, View} from 'react-native';
-import {Image} from '@rneui/themed';
 import {Avatar} from '@rneui/themed';
 
 const IntroduceScreen = () => {

@@ -9,7 +9,8 @@ const LoginScreen = () => {
     const [errorUsername, setErrorUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorPassword, setErrorPassword] = useState('');
-    const [toggleModel, setToggleModel] = useState(false)
+    const [toggleModel, setToggleModel] = useState(false);
+
     const user = {
         username: 'admin',
         password: 'admin',

@@ -1,11 +1,10 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, View} from 'react-native';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from "@react-navigation/drawer";
-import HomeScreen from "../screens/main/HomeScreen";
 import IntroduceScreen from "../screens/main/IntroduceScreen";
 import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
 import HomeNavigation from "./HomeNavigation";
-import {useNavigation, useRoute} from "@react-navigation/native"; // import the icon library
+import {useNavigation} from "@react-navigation/native"; // import the icon library
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
@@ -14,7 +13,7 @@ const CustomDrawerContent = (props) => {
     return (
         <DrawerContentScrollView {...props}>
             <View style={{padding: 20, alignItems: 'center'}}>
-                <Ionicons name="person-circle-outline" size={100} color="black" />
+                <Ionicons name="person-circle-outline" size={100} color="black"/>
                 <Text style={{fontSize: 20, fontWeight: 'bold'}}>Hello, User!</Text>
             </View>
             <DrawerItemList {...props} />
@@ -34,13 +33,13 @@ const MainNavigation = () => {
         <Drawer.Navigator
             drawerContent={props => <CustomDrawerContent {...props} />}
             initialRouteName="Home"
-            screenOptions={({ navigation }) => ({
+            screenOptions={({navigation}) => ({
                 headerLeft: () => (
                     <MaterialCommunityIcons
                         name="menu"
                         size={24}
                         onPress={() => navigation.toggleDrawer()}
-                        style={{ marginLeft: 10 }}
+                        style={{marginLeft: 10}}
                     />
                 ),
             })}
@@ -101,7 +100,7 @@ const MainNavigation = () => {
                                     text: "Cancel",
                                     style: "cancel"
                                 },
-                                { text: "OK", onPress: () => handleLogout() }
+                                {text: "OK", onPress: () => handleLogout()}
                             ]
                         );
                     },

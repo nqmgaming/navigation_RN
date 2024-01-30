@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet,} from 'react-native';
 import {createStackNavigator} from "@react-navigation/stack";
 import HomeScreen from "../screens/main/HomeScreen";
 import AddProductScreen from "../screens/main/AddProductScreen";
@@ -13,11 +13,11 @@ const HomeNavigation = () => {
         }}>
             <Stack.Screen name="Home" component={HomeScreen}/>
             <Stack.Screen name="AddProduct" component={AddProductScreen}
-            options={{
-                headerShown: true,
-                headerBackTitleVisible: true,
-                headerTitleAlign: 'center',
-            }}
+                          options={{
+                              headerShown: true,
+                              headerBackTitleVisible: true,
+                              headerTitleAlign: 'center',
+                          }}
 
             />
         </Stack.Navigator>

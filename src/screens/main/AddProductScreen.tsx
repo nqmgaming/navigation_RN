@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {Avatar, Input, Button} from '@rneui/themed';
 import * as ImagePicker from 'expo-image-picker';
 import {useNavigation} from "@react-navigation/native";
@@ -32,7 +32,7 @@ const AddProductScreen = () => {
         } else if (studentId.length !== 7) {
             setErrorStudentId('Student ID must be 8 characters');
             return false;
-        }else if (!handleStudentIdRegex(studentId)) {
+        } else if (!handleStudentIdRegex(studentId)) {
             setErrorStudentId('Student ID must be 2 characters and 5 numbers');
             return false;
         }
@@ -109,7 +109,7 @@ const AddProductScreen = () => {
                         containerStyle={{width: 300}}
                         label="Name"
                         value={name}
-                        errorMessage= {errorName}
+                        errorMessage={errorName}
                         onChangeText={setName}
                         placeholder="Enter name"/>
                 </View>
@@ -119,7 +119,7 @@ const AddProductScreen = () => {
                         label="Student ID"
                         value={studentId}
                         errorMessage={errorStudentId}
-                        onChangeText= {setStudentId}
+                        onChangeText={setStudentId}
                         maxLength={7}
                         placeholder="Enter student ID"/>
                 </View>
